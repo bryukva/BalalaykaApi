@@ -10,6 +10,8 @@ public class BalalaykaEntity
 
     public string Value { get; set; }
 
+    public Domain.Models.Balalayka ToDomain() => new (Id, Code, Value);
+    
     private class Config : IEntityTypeConfiguration<BalalaykaEntity>
     {
         public void Configure(EntityTypeBuilder<BalalaykaEntity> b)

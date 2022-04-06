@@ -1,6 +1,3 @@
 ﻿namespace Balalayka.Domain.Models;
 
-//TODO: domain model
-public class Balalayka
-{
-}
+public record Balalayka(long Id, int Code, string Value);

@@ -16,11 +16,14 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.2-mauipre.1.22102.15" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.2-mauipre.1.22102.15" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.2-mauipre.1.22102.15" />
   </ItemGroup>
-  
+  <ItemGroup>
+    <InternalsVisibleTo Include="..\Balalayka.Data\Balalayka.Api.Tests.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Balalayka.Data\Balalayka.Data.csproj" />
     <ProjectReference Include="..\Balalayka.Domain\Balalayka.Domain\Balalayka.Domain.csproj" />

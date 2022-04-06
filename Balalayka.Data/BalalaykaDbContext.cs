@@ -21,6 +21,6 @@ public class BalalaykaDbContext: DbContext {
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-       
+        options.LogTo(Console.WriteLine);
     }
 }
