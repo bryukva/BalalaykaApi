@@ -7,7 +7,6 @@ public class BalalaykaEntity
 {
     public long Id { get; set; }
     public int Code { get; set; }
-
     public string Value { get; set; }
 
     public Domain.Models.Balalayka ToDomain() => new (Id, Code, Value);
