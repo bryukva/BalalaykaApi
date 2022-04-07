@@ -36,13 +36,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/objects/{id}", async (int id, IBalalaykaStore store) =>
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.MapGet("/objects/{code}", async (int code, IBalalaykaStore store) =>
 {
-    var found = await store.Get(id, new CancellationToken());
+    var found = await store.Get(code, new CancellationToken());
     return found == null ? Results.NotFound() : Results.Ok(found);
 });
 
-app.MapPut("/objects/", async ([FromBody]IReadOnlyList<IDictionary<string, string>> query, [FromServices]IBalalaykaStore store) =>
+app.MapPost("/objects/", async ([FromBody]IReadOnlyList<IDictionary<string, string>> query, [FromServices]IBalalaykaStore store) =>
 {
     await store.DeleteAll(new CancellationToken());
     var candidates = query.SelectMany(x => x.Select(a => new BalalaykaCandidate(int.Parse(a.Key), a.Value))).ToList();
@@ -56,6 +59,19 @@ app.MapGet("/objects/", async ([FromQuery]int? codeLowerLimit, [FromQuery]int? c
     return Results.Ok(dataset);
 });
 
+app.MapDelete("/objects/{code}", async (int code, IBalalaykaStore store) =>
+{
+    var existing = await store.Get(code, new CancellationToken());
+
+    if (existing != null)
+    {
+        await store.Delete(existing.Id, new CancellationToken());
+    }
+
+    return Results.Ok();
+});
+
+
 app.Run();
 
-public partial class Program { } //for unit tests with inMemoryDb
+public partial class Program { } //for unit tests with inMemoryDb. Minimum API turn out to be not as cool as I expected )   

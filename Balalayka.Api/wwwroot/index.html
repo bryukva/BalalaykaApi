@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Balalayka CRUD</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+<h1>Balalayka CRUD</h1>
+<h3>Add one</h3>
+<form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+    <input type="text" id="add-code" placeholder="New code">
+    <input type="text" id="add-value" placeholder="New value">
+    <input type="submit" value="Add">
+</form>
+
+<h3>Add set (input should be json)</h3>
+<form action="javascript:void(0);" method="POST" onsubmit="addItems()">
+    <textarea rows="10" cols="45" name="text" id="add-items" placeholder="json array"></textarea>
+    <input type="submit" value="Add">
+</form>
+
+<div id="editForm">
+    <h3>Edit</h3>
+    <form action="javascript:void(0);" onsubmit="updateItem()">
+        <input type="hidden" id="edit-id">
+        <input type="checkbox" id="edit-isComplete">
+        <input type="text" id="edit-name">
+        <input type="submit" value="Save">
+        <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+    </form>
+</div>
+
+<p id="counter"></p>
+
+<table>
+    <tr>
+        <th>Code</th>
+        <th>Value</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tbody id="todos"></tbody>
+</table>
+
+<form class="linkbutton" action="/swagger/index.html">
+    <input type="submit" value="Use swagger to unsee this!" />
+</form>
+<script src="js/site.js" asp-append-version="true"></script>
+<script type="text/javascript">
+    getItems();
+</script>
+</body>
+</html>

@@ -16,12 +16,12 @@ public class BalalaykaStore : IBalalaykaStore
         _logger = logger;
     }
 
-    public async Task<string?> Get(int code, CancellationToken ctx)
+    public async Task<Domain.Models.Balalayka?> Get(int code, CancellationToken ctx)
     {
         var found = await _context.Balalaykas
             .Where(x => x.Code == code)
             .FirstOrDefaultAsync(ctx);
-        return found?.Value;
+        return found == null ? null : new Domain.Models.Balalayka(found.Id, found.Code, found.Value);
     }
     
     public async Task<int> AddList(IReadOnlyCollection<BalalaykaCandidate> candidates, CancellationToken ctx)
@@ -70,7 +70,12 @@ public class BalalaykaStore : IBalalaykaStore
     public async Task DeleteAll(CancellationToken ctx)
     {
         //for better performance on large datasets use "truncate table" raw sql command
-        foreach (var item in _context.Balalaykas)
+        await this.Delete(null, ctx);
+    }
+
+    public async Task Delete(long? id, CancellationToken ctx)
+    {
+        foreach (var item in _context.Balalaykas.Where(x => id == null || x.Id == id))
         {
             _context.Balalaykas.Remove(item);
         }
